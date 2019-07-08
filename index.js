@@ -6,7 +6,8 @@ const options = {
 };
 
 exports.handler = function (event, context, callback) {
-    const token = event.authorizationToken;
+    const bearer = event.authorizationToken || "";
+    const token = bearer.replace("Bearer ", "");
     console.info(token);
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET, options);
